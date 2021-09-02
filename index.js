@@ -9,7 +9,8 @@ const { Compilation, sources, version: wpVersion } = require("webpack");
 
 let debugMode = false;
 
-const isWebpack5 = Number(wpVersion.split(".")[0]) >= 5;
+let isWebpack5 = Number(wpVersion.split(".")[0]) >= 5;
+
 const pluginName = "GeneratePackageJsonPlugin";
 const pluginPrefix = "( Generate Package Json Webpack Plugin ): ";
 
@@ -24,11 +25,21 @@ function GeneratePackageJsonPlugin(
     additionalDependencies = {},
     useInstalledVersions = true,
     resolveContextPaths,
+    forcedWebpackVersion,
   } = {}
 ) {
   if (debug) {
     console.log(`GeneratePackageJsonPlugin: Debugging mode activated!`);
     debugMode = true;
+  }
+
+  if (forcedWebpackVersion) {
+    if (forcedWebpackVersion === 4) {
+      isWebpack5 = false;
+    } else if(forcedWebpackVersion === 5) {
+      isWebpack5 = true;
+    }
+    logIfDebug(`GPJWP: forced webpack version: ${forcedWebpackVersion}`);
   }
 
   /*

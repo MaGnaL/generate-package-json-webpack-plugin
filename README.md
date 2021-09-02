@@ -166,6 +166,11 @@ fallback for finding versions. This is useful for mono-repos and projects where 
 only defined from a single contextual project. If you share code between multiple projects or "workspaces" to be bundled
 into a final distribution project, you might want to set this option.
 
+`forcedWebpackVersion`: Version of webpack (version 4 or 5) that is forced to be used by the plugin. When this option is
+set, the automatic determination of the installed webpack version is overruled and the given version is used. This comes
+in handy, when the automatic determination is irritated and not able to tell which version is actually available. If not
+set, the automatic determination is used.
+
 ### :mag: Things to take note of
 
 You should remember to set the `"main": "./index.js"` to the correct filename (would probably be the output bundle file
